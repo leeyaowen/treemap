@@ -98,7 +98,7 @@ plotmap<-function(X1,Y1,xbase,ybase){
     scale_y_continuous(limits = c(-150,650))+
     coord_fixed()
   
-  #畫格線
+  #畫格線與外框
   for (i in 1:length(xyline)) {
     p<-p+geom_segment(x=xyline[i],y=0,xend=xyline[i],yend=500,colour="gray60",size=0.2)+
       geom_segment(x=0,y=xyline[i],xend=500,yend=xyline[i],colour="gray60",size=0.2)
