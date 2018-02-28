@@ -13,7 +13,7 @@ plotmap<-function(X1,Y1,xbase,ybase){
     plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
     plot_N<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
     plot_N<-mutate(plot_N,y3=y3+500)
-     plot_NE<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
+    plot_NE<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
     plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
     plot_E<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
     plot_E<-mutate(plot_E,x3=x3+500)
@@ -92,7 +92,6 @@ plotmap<-function(X1,Y1,xbase,ybase){
   
   #出圖
   p<-ggplot(plotall,aes(x=x3,y=y3))+
-    geom_rect(aes(ymax=500,ymin=0,xmax=500,xmin=0),alpha=0,size=0.7,colour="black")+
     theme(panel.background = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),axis.text = element_blank(),plot.title = element_text(face = "bold",hjust = 0.3))+
     ggtitle(paste("Quadrat No.(",X1,",",Y1,")","(",xbase,",",ybase,")", sep=""))+
     scale_x_continuous(limits = c(-150,650))+
@@ -101,11 +100,12 @@ plotmap<-function(X1,Y1,xbase,ybase){
   
   #畫格線
   for (i in 1:length(xyline)) {
-    p<-p+geom_segment(x=xyline[i],y=0,xend=xyline[i],yend=500,colour="black",size=0.2)+
-      geom_segment(x=0,y=xyline[i],xend=500,yend=xyline[i],colour="black",size=0.2)
+    p<-p+geom_segment(x=xyline[i],y=0,xend=xyline[i],yend=500,colour="gray60",size=0.2)+
+      geom_segment(x=0,y=xyline[i],xend=500,yend=xyline[i],colour="gray60",size=0.2)
   }
   p<-p+geom_segment(x=250,y=0,xend=250,yend=500,colour="black",size=0.5)+
-    geom_segment(x=0,y=250,xend=500,yend=250,colour="black",size=0.5)
+    geom_segment(x=0,y=250,xend=500,yend=250,colour="black",size=0.5)+
+    geom_rect(aes(ymax=500,ymin=0,xmax=500,xmin=0),alpha=0,size=0.7,colour="black")
   
   #畫點與字，存檔
   p<-p+geom_point(aes(size=dbh),shape=1,stroke=0.8,show.legend = F,colour=ifelse(plotall$dbh>0,"black","gray60"))+
@@ -121,11 +121,11 @@ plotmap<-function(X1,Y1,xbase,ybase){
 outputx2<-matrix(c(1,2))
 outputy2<-matrix(c(1,2))
 outquadrat<-function(X1,Y1){
-for (i in 1:length(outputx2)) {
-  for (j in 1:length(outputy2)) {
-    plotmap(X1,Y1,i,j)
+  for (i in 1:length(outputx2)) {
+    for (j in 1:length(outputy2)) {
+      plotmap(X1,Y1,i,j)
+    }
   }
-}
 }
 
 #北方樣區迴圈
