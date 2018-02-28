@@ -3,44 +3,145 @@ library(ggplot2)
 library(ggthemes)
 dt<-read.csv("./欖仁溪點位.csv")
 
+#X1=x1,Y1=y1,xbase=x2,ybase=y2
 plotmap<-function(X1,Y1,xbase,ybase){
+  
+  #設定周圍小樣方
   if(xbase==1 & ybase==1){
-  plot_center<-filter(dt,x1==X1,y1==Y1,x2==1,y2==1)
-  plot_NW<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==2)
-  plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
-  plot_N<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
-  plot_N<-mutate(plot_N,y3=y3+500)
-  plot_NE<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
-  plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
-  plot_E<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
-  plot_E<-mutate(plot_E,x3=x3+500)
-  plot_SE<-filter(dt,x1==X1,y1==Y1-1,x2==2,y2==2)
-  plot_SE<-mutate(plot_SE,x3=x3+500,y3=y3-500)
-  plot_S<-filter(dt,x1==X1,y1==Y1-1,x2==1,y2==2)
-  plot_S<-mutate(plot_S,y3=y3-500)
-  plot_SW<-filter(dt,x1==X1-1,y1==Y1-1,x2==2,y2==2)
-  plot_SW<-mutate(plot_SW,x3=x3-500,y3=y3-500)
-  plot_W<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==1)
-  plot_W<-mutate(plot_W,x3=x3-500)
+    plot_center<-filter(dt,x1==X1,y1==Y1,x2==1,y2==1)
+    plot_NW<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==2)
+    plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
+    plot_N<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
+    plot_N<-mutate(plot_N,y3=y3+500)
+     plot_NE<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
+    plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
+    plot_E<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
+    plot_E<-mutate(plot_E,x3=x3+500)
+    plot_SE<-filter(dt,x1==X1,y1==Y1-1,x2==2,y2==2)
+    plot_SE<-mutate(plot_SE,x3=x3+500,y3=y3-500)
+    plot_S<-filter(dt,x1==X1,y1==Y1-1,x2==1,y2==2)
+    plot_S<-mutate(plot_S,y3=y3-500)
+    plot_SW<-filter(dt,x1==X1-1,y1==Y1-1,x2==2,y2==2)
+    plot_SW<-mutate(plot_SW,x3=x3-500,y3=y3-500)
+    plot_W<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==1)
+    plot_W<-mutate(plot_W,x3=x3-500)
+  }else if(xbase==1 & ybase==2){
+    plot_center<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
+    plot_NW<-filter(dt,x1==X1-1,y1==Y1+1,x2==2,y2==1)
+    plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
+    plot_N<-filter(dt,x1==X1,y1==Y1+1,x2==1,y2==1)
+    plot_N<-mutate(plot_N,y3=y3+500)
+    plot_NE<-filter(dt,x1==X1+1,y1==Y1+1,x2==1,y2==1)
+    plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
+    plot_E<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
+    plot_E<-mutate(plot_E,x3=x3+500)
+    plot_SE<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
+    plot_SE<-mutate(plot_SE,x3=x3+500,y3=y3-500)
+    plot_S<-filter(dt,x1==X1,y1==Y1,x2==1,y2==1)
+    plot_S<-mutate(plot_S,y3=y3-500)
+    plot_SW<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==1)
+    plot_SW<-mutate(plot_SW,x3=x3-500,y3=y3-500)
+    plot_W<-filter(dt,x1==X1-1,y1==Y1,x2==2,y2==2)
+    plot_W<-mutate(plot_W,x3=x3-500)
+  }else if(xbase==2 & ybase==2){
+    plot_center<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
+    plot_NW<-filter(dt,x1==X1,y1==Y1+1,x2==1,y2==1)
+    plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
+    plot_N<-filter(dt,x1==X1,y1==Y1+1,x2==2,y2==1)
+    plot_N<-mutate(plot_N,y3=y3+500)
+    plot_NE<-filter(dt,x1==X1+1,y1==Y1+1,x2==1,y2==1)
+    plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
+    plot_E<-filter(dt,x1==X1+1,y1==Y1,x2==1,y2==2)
+    plot_E<-mutate(plot_E,x3=x3+500)
+    plot_SE<-filter(dt,x1==X1+1,y1==Y1,x2==1,y2==1)
+    plot_SE<-mutate(plot_SE,x3=x3+500,y3=y3-500)
+    plot_S<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
+    plot_S<-mutate(plot_S,y3=y3-500)
+    plot_SW<-filter(dt,x1==X1,y1==Y1,x2==1,y2==1)
+    plot_SW<-mutate(plot_SW,x3=x3-500,y3=y3-500)
+    plot_W<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
+    plot_W<-mutate(plot_W,x3=x3-500)
+  }else if(xbase==2 & ybase==1){
+    plot_center<-filter(dt,x1==X1,y1==Y1,x2==2,y2==1)
+    plot_NW<-filter(dt,x1==X1,y1==Y1,x2==1,y2==2)
+    plot_NW<-mutate(plot_NW,x3=x3-500,y3=y3+500)
+    plot_N<-filter(dt,x1==X1,y1==Y1,x2==2,y2==2)
+    plot_N<-mutate(plot_N,y3=y3+500)
+    plot_NE<-filter(dt,x1==X1+1,y1==Y1,x2==1,y2==2)
+    plot_NE<-mutate(plot_NE,x3=x3+500,y3=y3+500)
+    plot_E<-filter(dt,x1==X1+1,y1==Y1,x2==1,y2==1)
+    plot_E<-mutate(plot_E,x3=x3+500)
+    plot_SE<-filter(dt,x1==X1+1,y1==Y1-1,x2==1,y2==2)
+    plot_SE<-mutate(plot_SE,x3=x3+500,y3=y3-500)
+    plot_S<-filter(dt,x1==X1,y1==Y1-1,x2==2,y2==2)
+    plot_S<-mutate(plot_S,y3=y3-500)
+    plot_SW<-filter(dt,x1==X1,y1==Y1-1,x2==1,y2==2)
+    plot_SW<-mutate(plot_SW,x3=x3-500,y3=y3-500)
+    plot_W<-filter(dt,x1==X1,y1==Y1,x2==1,y2==1)
+    plot_W<-mutate(plot_W,x3=x3-500)
   }else{
     stop()
   }
+  
+  #結合周圍小樣方資料，限制輸出圖檔範圍
   plotall<-bind_rows(plot_center,plot_NW,plot_N,plot_NE,plot_E,plot_SE,plot_S,plot_SW,plot_W)
   plotall<-filter(plotall,x3>=-100 & x3<=600 & y3>=-100 & y3<=600)
- 
-  ggplot(plotall,aes(x=x3,y=y3))+
-    geom_point(aes(size=dbh),shape=1,stroke=1.1,show.legend = F)+geom_text(aes(label=tag),hjust=-0.1,vjust=1.2,size=3)+
-    geom_rect(aes(ymax=500,ymin=0,xmax=500,xmin=0),alpha=0,size=1,colour="black")+
-    geom_segment(x=0,y=250,xend=500,yend=250,colour="black")+
-    geom_segment(x=250,y=0,xend=250,yend=500,colour="black")+
-    theme(panel.background = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),axis.text = element_blank(),plot.title = element_text(hjust = 0.5))+
-    ggtitle("(26,17)\n (1,1)")+
+
+  #設定格線
+  xyline<-seq(50,450,50)
+  
+  #出圖
+  p<-ggplot(plotall,aes(x=x3,y=y3))+
+    geom_rect(aes(ymax=500,ymin=0,xmax=500,xmin=0),alpha=0,size=0.7,colour="black")+
+    theme(panel.background = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),axis.text = element_blank(),plot.title = element_text(face = "bold",hjust = 0.3))+
+    ggtitle(paste("Quadrat No.(",X1,",",Y1,")","(",xbase,",",ybase,")", sep=""))+
     scale_x_continuous(limits = c(-150,650))+
     scale_y_continuous(limits = c(-150,650))+
     coord_fixed()
+  
+  #畫格線
+  for (i in 1:length(xyline)) {
+    p<-p+geom_segment(x=xyline[i],y=0,xend=xyline[i],yend=500,colour="black",size=0.2)+
+      geom_segment(x=0,y=xyline[i],xend=500,yend=xyline[i],colour="black",size=0.2)
+  }
+  p<-p+geom_segment(x=250,y=0,xend=250,yend=500,colour="black",size=0.5)+
+    geom_segment(x=0,y=250,xend=500,yend=250,colour="black",size=0.5)
+  
+  #畫點與字，存檔
+  p<-p+geom_point(aes(size=dbh),shape=1,stroke=0.8,show.legend = F,colour=ifelse(plotall$dbh>0,"black","gray60"))+
+    geom_text(aes(label=tag),hjust=-0.1,vjust=1.2,size=2.5,colour=ifelse(plotall$dbh>0,"black","gray60"))+
+    ggsave(filename=paste("(",X1,",",Y1,")","(",xbase,",",ybase,").pdf", sep=""), width = 210, height = 297, units = "mm")
+  p
+  
+  #確認出圖  
+  print(paste("正在產生(",X1,",",Y1,")","(",xbase,",",ybase,")",sep=""))
 }
 
+#樣方迴圈
+outputx2<-matrix(c(1,2))
+outputy2<-matrix(c(1,2))
+outquadrat<-function(X1,Y1){
+for (i in 1:length(outputx2)) {
+  for (j in 1:length(outputy2)) {
+    plotmap(X1,Y1,i,j)
+  }
+}
+}
 
+#北方樣區迴圈
+outputNX1<-matrix(c(26:55))
+outputNY1<-matrix(c(29:38))
+for(i in 1:length(outputNX1)){
+  for(j in 1:length(outputNY1)){
+    outquadrat(outputNX1[i],outputNY1[j])
+  }
+}
 
-
-
+#南方樣區迴圈
+outputSX1<-matrix(c(26:49))
+outputSY1<-matrix(c(17:28))
+for(i in 1:length(outputSX1)){
+  for(j in 1:length(outputSY1)){
+    outquadrat(outputSX1[i],outputSY1[j])
+  }
+}
