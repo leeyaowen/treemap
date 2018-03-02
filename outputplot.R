@@ -3,8 +3,18 @@ library(ggplot2)
 library(ggthemes)
 dt<-read.csv("./欖仁溪點位.csv")
 
+
 #X1=x1,Y1=y1,xbase=x2,ybase=y2
 plotmap<-function(X1,Y1,xbase,ybase){
+  
+  #防呆
+  if(X1>max(dt$x1)|X1<min(dt$x1)){
+    stop("X1 not in range!")
+  }else if(Y1>max(dt$y1)|Y1<min(dt$y1)){
+    stop("Y1 not in range!")
+  }else{
+    
+  }
   
   #設定周圍小樣方
   if(xbase==1 & ybase==1){
@@ -86,7 +96,10 @@ plotmap<-function(X1,Y1,xbase,ybase){
   #結合周圍小樣方資料，限制輸出圖檔範圍
   plotall<-bind_rows(plot_center,plot_NW,plot_N,plot_NE,plot_E,plot_SE,plot_S,plot_SW,plot_W)
   plotall<-filter(plotall,x3>=-100 & x3<=600 & y3>=-100 & y3<=600)
-
+  
+  #確認出圖
+  print(paste("正在產生(",X1,",",Y1,")","(",xbase,",",ybase,")",sep=""))
+  
   #設定格線
   xyline<-seq(50,450,50)
   
@@ -111,10 +124,6 @@ plotmap<-function(X1,Y1,xbase,ybase){
   p<-p+geom_point(aes(size=dbh),shape=1,stroke=0.8,show.legend = F,colour=ifelse(plotall$dbh>0,"black","gray60"))+
     geom_text(aes(label=tag),hjust=-0.1,vjust=1.2,size=2.5,colour=ifelse(plotall$dbh>0,"black","gray60"))+
     ggsave(filename=paste("(",X1,",",Y1,")","(",xbase,",",ybase,").pdf", sep=""), width = 210, height = 297, units = "mm")
-  p
-  
-  #確認出圖  
-  print(paste("正在產生(",X1,",",Y1,")","(",xbase,",",ybase,")",sep=""))
 }
 
 #樣方迴圈
