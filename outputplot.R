@@ -105,7 +105,7 @@ plotmap<-function(X1,Y1,xbase,ybase){
   
   #出圖
   p<-ggplot(plotall,aes(x=x3,y=y3))+
-    theme(panel.background = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),axis.text = element_blank(),plot.title = element_text(face = "bold",hjust = 0.3))+
+    theme(panel.background = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),axis.text = element_blank(),plot.title = element_text(face = "bold",hjust = 0.3),plot.caption = element_text(hjust = 0.8,size = 18))+
     ggtitle(paste("Quadrat No.(",X1,",",Y1,")","(",xbase,",",ybase,")", sep=""))+
     scale_x_continuous(limits = c(-150,650))+
     scale_y_continuous(limits = c(-150,650))+
@@ -122,8 +122,10 @@ plotmap<-function(X1,Y1,xbase,ybase){
   
   #畫點與字，存檔
   p<-p+geom_point(aes(size=dbh),shape=1,stroke=0.8,show.legend = F,colour=ifelse(plotall$dbh>0,"black","gray60"))+
+    scale_size_continuous(range = c(0,20))+
     geom_text(aes(label=tag),hjust=-0.1,vjust=1.2,size=2.5,colour=ifelse(plotall$dbh>0,"black","gray60"))+
-    ggsave(filename=paste("(",X1,",",Y1,")","(",xbase,",",ybase,").pdf", sep=""), width = 210, height = 297, units = "mm")
+    labs(caption = "(     /     )")
+    ggsave(filename=paste("plot(",X1,",",Y1,")","(",xbase,",",ybase,").pdf", sep=""), width = 210, height = 297, units = "mm")
 }
 
 #樣方迴圈
